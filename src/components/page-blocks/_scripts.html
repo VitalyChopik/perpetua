@@ -1,0 +1,35 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="js/libs.min.js"></script>
+<script src="js/main.min.js"></script>
+  <script src="js/fullpage/jquery.easings.min.js"></script>
+  <script src="js/fullpage/scrolloverflow.min.js"></script>
+  <script src="js/fullpage/jquery.fullPage.min.js"></script>
+  <!-- инициализация плагина fullpage -->
+  <script>
+    $(document).ready(function () {
+      $('#fullpage').fullpage();
+    
+     
+      new fullpage('#fullpage', {
+            menu: '#navigation',
+            css3: true,
+            scrollingSpeed: 5000,
+            slidesNavPosition: 'bottom',
+            lazyLoading: true,
+            observer: true,
+        });
+
+      if($('.section').hasClass('active')) {
+        $('.section.active video').currentTime = 0;
+      }
+      $('.burger__menu').click(function(){
+
+        if($('.navmenu').hasClass('active')) {
+            $('.navmenu').removeClass('active');
+        } else {
+            $('.navmenu').addClass('active');
+        }
+         });
+    });
+  </script>

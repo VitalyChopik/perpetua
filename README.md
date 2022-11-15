@@ -1,77 +1,34 @@
-# Gulp + WebPack + Babel
+[![Donate](https://img.shields.io/badge/donate-dyaka.com-red?style=plastic)](https://css_notes.dyaka.com/startpack)
 
-Сборку делал по примеру автора [youtube](https://www.youtube.com/watch?v=jU88mLuLWlk) канала: [Фрилансер по жизни](https://www.youtube.com/c/FreelancerLifeStyle)  
+# Easy-webdev-startpack
 
-## Для работы используйте такие комманды
+![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/budfy/easy-webdev-startpack?style=plastic) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/budfy/Easy-webdev-startpack?style=plastic) ![GitHub last commit](https://img.shields.io/github/last-commit/budfy/easy-webdev-startpack?style=plastic) ![GitHub Repo stars](https://img.shields.io/github/stars/budfy/Easy-webdev-startpack?style=plastic) ![GitHub forks](https://img.shields.io/github/forks/budfy/Easy-webdev-startpack?style=plastic)
 
-Для установки всех зависимостей: `$ npm install`  
-Для запуска сборщика Gulp можно использовать: `$ npm run dev` или `$ gulp`  
-Для сборки проекта в режиме `"production"`: `$ npm run build`
-> Для сборки проекта в режиме `"production"` можно так же использовать комманду: `$ gulp build`, но тогда сборщик не может разобрать это `"production"` или `"development"` и собирет проект в режиме `"development"`
+## Сборка Gulp4 с плагинами для разработки вебпроектов.
 
-## На что еще обратить внимание
+Вы можете поддержать разработку проекта, перейдя [по ссылке](https://css_notes.diaka.ua/startpack) и оставив мне что-то на кофе.
 
-В сборке используется плагин `"gulp-fonter"` для конвертации шрифтов из `.ttf` в `.woff` и при сборке проекта - шрифты в формате `.woff` коряво будут переименованы и перенесутся в неправильную папку. Чтобы решить этот баг, сразу после установки зависимостей перейди в папку `node_modules` - найди там папку и файл: `gulp-fonter/dist/index.js`
+[![Мануал по работе со сборкой Easy-webdev-startpack](http://joxi.ru/GrqlnQoCRGvenA.png)](http://www.youtube.com/watch?v=_j38UEpskPU "Мануал по работе со сборкой Easy-webdev-startpack")
 
-22-я строка кода будет выглядеть вот так:
+Смотрите [вики](https://github.com/budfy/Easy-webdev-startpack/wiki) сборки, чтобы узнать, как ею пользоваться правильно. В вики справа есть разделы и они по мере наличия времени и возникновения вопросов дополняются.
+![Разделы вики](http://dl3.joxi.net/drive/2020/05/30/0024/1564/1599004/04/b9d9794244.png)
 
-```javascript
-newFont.path = source.dirname + '\\' + source.stem + '.' + type;
-```
+## Что есть в сборке:
 
-Тебе нужно её заменить на эту строку:
+- компилятор для препроцессора scss/sass;
+- минификация готового css;
+- автопрефиксер;
+- импорт одних файлов в другие, который позволяет собирать html из модулей;
+- babel;
+- конвертация шрифтов из ttf вwoff и woff2;
+- полуавтоматическое формирование и подключение @font-face;
+- для живого обновления страниц - browsersync;
+- карта исходников для отображения в браузере, из какого scss взят кусок css;
+- сжатие изображений;
+- адекватное сжатие png через pngquant;
+- сжатие svg;
+- создание svg-спрайтов и конвертация svg в background-image;
+- конвертация растровых изображений в webp;
+- живая перезагрузка при работе с PHP (совместно с openserver);
 
-```javascript
-newFont.path = source.dirname + '/' + source.stem + '.' + type;
-```
-
-Автор этого плагина допустил однажды ошибку и из за этого при установке зависимостей плагин скачивается с маленькой ошибкой в коде. Автору предложил пофиксить этот баг и даже письмо написал, но он до сих пор не отвечает.
-
-## Что делает Gulp?
-
-* сжимает HTML в режиме `build`;
-* удаляет комментарии из HTML в режиме `build`;
-* собирает SCSS файлы, добавляет вендорные префиксы;
-* удаляет комментарии из SCSS файлов;
-* в режиме и `build` сжимает SCSS и делает копию без сжатия;
-* конвертирует шрифты в `.ttf`, из `.ttf` в `woff/woff2`;
-* создает файл для подключения шрифтов. Данный файл создается по такому пути: `src/scss/config/fonts.scss`, выглядит это так:
-
-```scss
-@font-face {
-  font-family: Inter;
-  font-display: swap;
-  src: url("../fonts/Inter-Bold.woff2") format("woff2"), url("../fonts/Inter-Bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-}
-```
-
-* сжимает изображения и конвертирует их дополнительно в формат `webp` и подключает их если браузер поддерживает этот формат;
-* копирует папку `/files` с содержимым в финальную сборку. То есть любые файлы можно поместить в эту папку и она будет добавлена в финальную сборку;
-* отдельной коммандой `$ npm run svgSprive` cоздает "svg cпрайты";
-* перед каждым запуском сборщика чистит папку с финальным проектом, чтобы не собирать муссор;
-* отдельной коммандой `$ npm run zip` можно заархивировать финальную папку для заказчика __с именем проекта__;
-* так же для разработи `gulp` запускает сервер с автоматической перезагрузкой окна в браузере при изменении файлов в проекте;
-* отдельной коммандой `$ npm run deployFTP` финальный проект выгружается на хостинг. Опции для отправки проекта на нужный хостинг указываются в файле: `gulp/config/ftp.js`.
-
-## Что делает WebPack?
-
-* именно `webpack` в данной сборке занимается обработкой файлов c JavaScript;
-* поддерживается модульное подключение скриптов `import/export`;
-* при импорте нет необходимости писать расширение файла `.js`, так же если осуществляется импорт из файла `index.js` не обязательно это указывать:
-
-```javascript
-import * as flsFunctions from './modules' // './modules/index.js'
-```
-
-* `webpack` c помощью `babel` позволяет тебе писать код на любимом __ES6+__;
-* в режиме `"production"` при финальной сборке файлы JS сжимаются.
-
-## Финал
-
-Отдельной вишенкой является плагин `gh-pages` для деплоя папки `/dist` на отдельную ветку GitHub, чтобы красиво развернуть свой проект на GitHub Pages. Для этого в `package.json` укажи в поле __homepage__ ссылку на свою страницу gh-pages:
-
-```json
-"homepage": "https://{UserName}.github.io/{NameRepo}",
-```
+## Об ошибках, пожалуйста, сообщайте в [ишьюс](https://github.com/budfy/Easy-webdev-startpack/issues). Там же можно оставить свои предложения по функционалу сборки.
